@@ -1,0 +1,11 @@
+#!/bin/bash
+declare -a parts=(xa xb xc xd)
+wget -O ./freebase_data.gz http://download.freebaseapps.com/
+gunzip ./freebase_data.gz 
+split -l 10000000 ./freebase_data
+rm ./freebase_data
+./bin/prepend_header_and_fixit ./x*
+for part in ${parts[@]}
+do
+  ./bin/load_ttl $part $part*
+done

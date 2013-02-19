@@ -1,0 +1,10 @@
+#!/bin/sh
+part=$1
+shift
+for F in "$@"
+do
+    echo "==== $F ($(date))"
+    rm -rf ../../storage/freebase_$part
+    mkdir -p ../../storage/freebase_$part
+    tdbloader --loc ../../storage/freebase_$part $F 2>&1 | grep -v WARN | grep -v INFO
+done

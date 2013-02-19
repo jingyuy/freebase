@@ -1,0 +1,7 @@
+#!/bin/sh
+
+for F in "$@"
+do
+    echo "==== $F ($(date))"
+    fixit $F | turtle --validate --time 2>&1 | grep -v WARN
+done
